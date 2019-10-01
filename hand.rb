@@ -1,22 +1,22 @@
 require_relative 'deck'
 
 class Hand
-  attr_accessor :hand, :score
+  attr_accessor :cards, :score
   def initialize
-    @hand = []
+    @cards = []
     @score = 0
   end
 
     def deal(num)
       num.times do |item|
-        @hand << Deck.new.cards.pop
+        @cards << Deck.new.cards.pop
       end
-      @hand
+      @cards
     end
 
-  def calculate_hand
+  def calculate
     @score = 0
-    @hand.each do |card|
+    @cards.each do |card|
         if card.type == "ace"
             if @score > 10
               @score += 1

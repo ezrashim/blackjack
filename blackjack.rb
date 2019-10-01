@@ -15,29 +15,29 @@ class Blackjack
 
   def deal_player
     @player.hand.deal(1)
-    puts "Player was dealt #{@player.hand.hand[-1].value}#{@player.hand.hand[-1].suit}"
+    puts "Player was dealt #{@player.hand.cards[-1].value}#{@player.hand.cards[-1].suit}"
   end
 
   def deal_dealer
     @dealer.hand.deal(1)
-    puts "Dealer was dealt #{@dealer.hand.hand[-1].value}#{@dealer.hand.hand[-1].suit}"
+    puts "Dealer was dealt #{@dealer.hand.cards[-1].value}#{@dealer.hand.cards[-1].suit}"
   end
 
   def player_score
-    puts "Player score: #{@player.hand.calculate_hand}"
-    return @player.hand.calculate_hand
+    puts "Player score: #{@player.hand.calculate}"
+    return @player.hand.calculate
   end
 
   def dealer_score
-     puts "Dealer score: #{@dealer.hand.calculate_hand}"
-      return @dealer.hand.calculate_hand
+     puts "Dealer score: #{@dealer.hand.calculate}"
+      return @dealer.hand.calculate
   end
 
   def result
-    if @player.hand.calculate_hand > @dealer.hand.calculate_hand
+    if @player.hand.calculate > @dealer.hand.calculate
       puts "You win!"
       return "You win!"
-    elsif @player.hand.calculate_hand < @dealer.hand.calculate_hand
+    elsif @player.hand.calculate < @dealer.hand.calculate
       puts "Dealer wins!"
       return "Dealer wins!"
     else
@@ -57,15 +57,15 @@ class Blackjack
     while true
       puts "Hit or stand (H/S): "
       answer = gets.chomp
-      if answer == "H"
+      if answer.upcase == "H"
         deal_player
         player_score
-          if @player.hand.calculate_hand > 21
+          if @player.hand.calculate > 21
             puts "Bust....You lose..."
             return "Bust....You lose..."
             break
           end
-      elsif answer == "S"
+      elsif answer.upcase == "S"
         player_score
         puts ""
         deal_dealer
@@ -74,11 +74,11 @@ class Blackjack
         puts ""
 
         while true
-          if @dealer.hand.calculate_hand > 21
+          if @dealer.hand.calculate > 21
             puts "You win!"
             return "You win!"
             break
-          elsif @dealer.hand.calculate_hand >= 17
+          elsif @dealer.hand.calculate >= 17
             puts "Dealer stands."
             puts ""
             result
@@ -100,3 +100,4 @@ end
 
 
 blackjack = Blackjack.new
+blackjack.play!
